@@ -131,7 +131,11 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   {
     'js/page/index.js': [
       function (require, module, exports) {
-        console.log('hello, world!!!!');
+        var console = function console() {
+          console.log('test');
+        };
+
+        console();
       },
       {},
     ],
@@ -168,7 +172,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           var hostname = '' || location.hostname;
           var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
           var ws = new WebSocket(
-            protocol + '://' + hostname + ':' + '52672' + '/'
+            protocol + '://' + hostname + ':' + '55414' + '/'
           );
 
           ws.onmessage = function (event) {
