@@ -13,6 +13,28 @@
         <div class="alert alert-primary">Notice Board</div>
         <ul class="list-group" id="board-list"></ul>
     </div>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail View</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="badge badge-primary mb-2">Title / Author</div>
+                    <div id="modal-title" class="font-weight-bold"></div>
+                    <br />
+                    <div class="badge badge-primary mb-2">Comment</div>
+                    <div id="modal-body"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">check</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="./js/page/index.js"></script>
 </body>
 </html>

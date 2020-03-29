@@ -2209,10 +2209,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
               var childNode = document.createElement('li'); // li 내용 생성
 
               var text = document.createTextNode(
-                'No. '
-                  .concat(id, ' / Title: ')
-                  .concat(title, ' / Author: ')
-                  .concat(userId)
+                ''.concat(id, '. ').concat(title, ' / Author: ').concat(userId)
               );
               childNode.appendChild(text);
               childNode.classList.add(
@@ -2224,6 +2221,28 @@ parcelRequire = (function (modules, cache, entry, globalName) {
               childNode.setAttribute('data-target', '#modal'); // li map
 
               document.getElementById('board-list').appendChild(childNode);
+              var listItem = document.getElementById('data-'.concat(id));
+
+              var onClick = function onClick() {
+                var modalTitle = document.getElementById('modal-title');
+                var modalBody = document.getElementById('modal-body');
+                var titleNode = document.createTextNode(
+                  ''.concat(title, ' / Author: ').concat(userId)
+                );
+                var bodyNode = document.createTextNode(''.concat(body));
+
+                if (modalTitle.hasChildNodes()) {
+                  modalTitle.removeChild(modalTitle.childNodes[0]);
+                  modalTitle.appendChild(titleNode);
+                  modalBody.removeChild(modalBody.childNodes[0]);
+                  modalBody.appendChild(bodyNode);
+                } else {
+                  modalTitle.appendChild(titleNode);
+                  modalBody.appendChild(bodyNode);
+                }
+              };
+
+              listItem.addEventListener('click', onClick, false);
             });
           });
       },
@@ -2262,7 +2281,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           var hostname = '' || location.hostname;
           var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
           var ws = new WebSocket(
-            protocol + '://' + hostname + ':' + '64162' + '/'
+            protocol + '://' + hostname + ':' + '54760' + '/'
           );
 
           ws.onmessage = function (event) {
