@@ -1,5 +1,5 @@
-const console = () => {
-  console.log('test');
-};
+import axios from 'axios';
 
-console();
+axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
+  console.log(response);
+});
