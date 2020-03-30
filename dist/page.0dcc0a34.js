@@ -2207,25 +2207,6 @@ parcelRequire = (function (modules, cache, entry, globalName) {
             params[key] = value;
           });
           return params;
-        }; // modal onclick function
-
-        var onClick = function onClick() {
-          var modalTitle = document.getElementById('modal-title');
-          var modalBody = document.getElementById('modal-body');
-          var titleNode = document.createTextNode(
-            ''.concat(title, ' / Author: ').concat(userId)
-          );
-          var bodyNode = document.createTextNode(''.concat(body));
-
-          if (modalTitle.hasChildNodes()) {
-            modalTitle.removeChild(modalTitle.childNodes[0]);
-            modalTitle.appendChild(titleNode);
-            modalBody.removeChild(modalBody.childNodes[0]);
-            modalBody.appendChild(bodyNode);
-          } else {
-            modalTitle.appendChild(titleNode);
-            modalBody.appendChild(bodyNode);
-          }
         }; // List and Modal View function
 
         var createListAndModal = function createListAndModal(data) {
@@ -2252,6 +2233,26 @@ parcelRequire = (function (modules, cache, entry, globalName) {
             document.getElementById('board-list').appendChild(childNode); // modal control
 
             var listItem = document.getElementById('data-'.concat(id));
+
+            var onClick = function onClick() {
+              var modalTitle = document.getElementById('modal-title');
+              var modalBody = document.getElementById('modal-body');
+              var titleNode = document.createTextNode(
+                ''.concat(title, ' / Author: ').concat(userId)
+              );
+              var bodyNode = document.createTextNode(''.concat(body));
+
+              if (modalTitle.hasChildNodes()) {
+                modalTitle.removeChild(modalTitle.childNodes[0]);
+                modalTitle.appendChild(titleNode);
+                modalBody.removeChild(modalBody.childNodes[0]);
+                modalBody.appendChild(bodyNode);
+              } else {
+                modalTitle.appendChild(titleNode);
+                modalBody.appendChild(bodyNode);
+              }
+            };
+
             listItem.addEventListener('click', onClick, false);
           });
         }; // api
@@ -2305,7 +2306,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           var hostname = '' || location.hostname;
           var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
           var ws = new WebSocket(
-            protocol + '://' + hostname + ':' + '56829' + '/'
+            protocol + '://' + hostname + ':' + '58800' + '/'
           );
 
           ws.onmessage = function (event) {
