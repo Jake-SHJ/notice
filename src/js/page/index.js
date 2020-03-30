@@ -12,6 +12,25 @@ const getUrlParams = () => {
   return params;
 };
 
+// modal onclick function
+const onClick = () => {
+  const modalTitle = document.getElementById('modal-title');
+  const modalBody = document.getElementById('modal-body');
+
+  const titleNode = document.createTextNode(`${title} / Author: ${userId}`);
+  const bodyNode = document.createTextNode(`${body}`);
+
+  if (modalTitle.hasChildNodes()) {
+    modalTitle.removeChild(modalTitle.childNodes[0]);
+    modalTitle.appendChild(titleNode);
+    modalBody.removeChild(modalBody.childNodes[0]);
+    modalBody.appendChild(bodyNode);
+  } else {
+    modalTitle.appendChild(titleNode);
+    modalBody.appendChild(bodyNode);
+  }
+};
+
 // List and Modal View function
 const createListAndModal = (data) => {
   data.map((datum) => {
@@ -32,23 +51,6 @@ const createListAndModal = (data) => {
 
     // modal control
     const listItem = document.getElementById(`data-${id}`);
-    const onClick = () => {
-      const modalTitle = document.getElementById('modal-title');
-      const modalBody = document.getElementById('modal-body');
-
-      const titleNode = document.createTextNode(`${title} / Author: ${userId}`);
-      const bodyNode = document.createTextNode(`${body}`);
-
-      if (modalTitle.hasChildNodes()) {
-        modalTitle.removeChild(modalTitle.childNodes[0]);
-        modalTitle.appendChild(titleNode);
-        modalBody.removeChild(modalBody.childNodes[0]);
-        modalBody.appendChild(bodyNode);
-      } else {
-        modalTitle.appendChild(titleNode);
-        modalBody.appendChild(bodyNode);
-      }
-    };
     listItem.addEventListener('click', onClick, false);
   });
 };
