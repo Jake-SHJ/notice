@@ -12,14 +12,9 @@ const getUrlParams = () => {
   return params;
 };
 
-// api
-axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
-  console.log(response);
-  const page = getUrlParams().page;
-  // response pagination filtering
-  const paginetedResponse = response.data.slice(`${page - 1}0`, `${page}0`);
-
-  paginetedResponse.map((datum) => {
+// List and Modal View function
+const createListAndModal = (data) => {
+  data.map((datum) => {
     const { userId, id, title, body } = datum;
     // li 생성
     const childNode = document.createElement('li');
@@ -56,4 +51,16 @@ axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
     };
     listItem.addEventListener('click', onClick, false);
   });
+};
+
+// api
+axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
+  console.log(response);
+  const page = getUrlParams().page;
+
+  // response pagination filtering
+  const paginatedResponseData = response.data.slice(`${page - 1}0`, `${page}0`);
+
+  // call view function
+  createListAndModal(paginatedResponseData);
 });
