@@ -2196,11 +2196,30 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           return obj && obj.__esModule ? obj : { default: obj };
         }
 
+        // query string to parameter function
+        var getUrlParams = function getUrlParams() {
+          var params = {};
+          window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (
+            str,
+            key,
+            value
+          ) {
+            params[key] = value;
+          });
+          return params;
+        }; // api
+
         _axios.default
           .get('https://jsonplaceholder.typicode.com/posts')
           .then(function (response) {
             console.log(response);
-            response.data.map(function (datum) {
+            var page = getUrlParams().page; // response pagination filtering
+
+            var paginetedResponse = response.data.slice(
+              ''.concat(page - 1, '0'),
+              ''.concat(page, '0')
+            );
+            paginetedResponse.map(function (datum) {
               var userId = datum.userId,
                 id = datum.id,
                 title = datum.title,
@@ -2220,7 +2239,8 @@ parcelRequire = (function (modules, cache, entry, globalName) {
               childNode.setAttribute('data-toggle', 'modal');
               childNode.setAttribute('data-target', '#modal'); // li map
 
-              document.getElementById('board-list').appendChild(childNode);
+              document.getElementById('board-list').appendChild(childNode); // modal control
+
               var listItem = document.getElementById('data-'.concat(id));
 
               var onClick = function onClick() {
@@ -2281,7 +2301,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           var hostname = '' || location.hostname;
           var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
           var ws = new WebSocket(
-            protocol + '://' + hostname + ':' + '54760' + '/'
+            protocol + '://' + hostname + ':' + '59092' + '/'
           );
 
           ws.onmessage = function (event) {

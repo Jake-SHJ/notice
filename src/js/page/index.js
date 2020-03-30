@@ -1,8 +1,25 @@
 import axios from 'axios';
 
+// query string to parameter function
+const getUrlParams = () => {
+  const params = {};
+  window.location.search.replace(
+    /[?&]+([^=&]+)=([^&]*)/gi,
+    (str, key, value) => {
+      params[key] = value;
+    }
+  );
+  return params;
+};
+
+// api
 axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
   console.log(response);
-  response.data.map((datum) => {
+  const page = getUrlParams().page;
+  // response pagination filtering
+  const paginetedResponse = response.data.slice(`${page - 1}0`, `${page}0`);
+
+  paginetedResponse.map((datum) => {
     const { userId, id, title, body } = datum;
     // li 생성
     const childNode = document.createElement('li');
@@ -18,6 +35,7 @@ axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
     // li map
     document.getElementById('board-list').appendChild(childNode);
 
+    // modal control
     const listItem = document.getElementById(`data-${id}`);
     const onClick = () => {
       const modalTitle = document.getElementById('modal-title');
