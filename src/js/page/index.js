@@ -54,13 +54,14 @@ const createListAndModal = (data) => {
 };
 
 // api
-axios.get('https://jsonplaceholder.typicode.com/posts').then((response) => {
-  console.log(response);
-  const page = getUrlParams().page;
+axios
+  .get(`https://jsonplaceholder.typicode.com/posts${window.location.search}`)
+  .then((response) => {
+    console.log(response);
 
-  // response pagination filtering
-  const paginatedResponseData = response.data.slice(`${page - 1}0`, `${page}0`);
+    // header link
+    console.log(response.headers.link);
 
-  // call view function
-  createListAndModal(paginatedResponseData);
-});
+    // call view function
+    createListAndModal(response.data);
+  });

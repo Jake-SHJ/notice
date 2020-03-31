@@ -2258,17 +2258,17 @@ parcelRequire = (function (modules, cache, entry, globalName) {
         }; // api
 
         _axios.default
-          .get('https://jsonplaceholder.typicode.com/posts')
+          .get(
+            'https://jsonplaceholder.typicode.com/posts'.concat(
+              window.location.search
+            )
+          )
           .then(function (response) {
-            console.log(response);
-            var page = getUrlParams().page; // response pagination filtering
+            console.log(response); // header link
 
-            var paginatedResponseData = response.data.slice(
-              ''.concat(page - 1, '0'),
-              ''.concat(page, '0')
-            ); // call view function
+            console.log(response.headers.link); // call view function
 
-            createListAndModal(paginatedResponseData);
+            createListAndModal(response.data);
           });
       },
       { axios: '../node_modules/axios/index.js' },
@@ -2306,7 +2306,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           var hostname = '' || location.hostname;
           var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
           var ws = new WebSocket(
-            protocol + '://' + hostname + ':' + '58800' + '/'
+            protocol + '://' + hostname + ':' + '60700' + '/'
           );
 
           ws.onmessage = function (event) {
