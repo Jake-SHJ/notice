@@ -1,4 +1,5 @@
 import axios from 'axios';
+import parse from 'parse-link-header';
 
 // query string to parameter function
 const getUrlParams = () => {
@@ -60,7 +61,10 @@ axios
     console.log(response);
 
     // header link
-    console.log(response.headers.link);
+    const parsedHeader = parse(response.headers.link);
+    const currentPage = parsedHeader.next._page - 1;
+    console.log(parsedHeader);
+    console.log(currentPage);
 
     // call view function
     createListAndModal(response.data);
