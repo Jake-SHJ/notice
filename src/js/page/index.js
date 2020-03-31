@@ -62,7 +62,11 @@ axios
 
     // header link
     const parsedHeader = parse(response.headers.link);
-    const currentPage = parsedHeader.next._page - 1;
+    const totalCount = Number(parsedHeader.last._page);
+    const currentPage = parsedHeader.next
+      ? parsedHeader.next._page - 1
+      : totalCount;
+
     console.log(parsedHeader);
     console.log(currentPage);
 

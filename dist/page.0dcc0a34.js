@@ -3905,7 +3905,10 @@ parcelRequire = (function (modules, cache, entry, globalName) {
             var parsedHeader = (0, _parseLinkHeader.default)(
               response.headers.link
             );
-            var currentPage = parsedHeader.next._page - 1;
+            var totalCount = Number(parsedHeader.last._page);
+            var currentPage = parsedHeader.next
+              ? parsedHeader.next._page - 1
+              : totalCount;
             console.log(parsedHeader);
             console.log(currentPage); // call view function
 
@@ -3950,7 +3953,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           var hostname = '' || location.hostname;
           var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
           var ws = new WebSocket(
-            protocol + '://' + hostname + ':' + '55924' + '/'
+            protocol + '://' + hostname + ':' + '57084' + '/'
           );
 
           ws.onmessage = function (event) {
