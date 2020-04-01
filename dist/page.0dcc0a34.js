@@ -3832,6 +3832,75 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           return obj && obj.__esModule ? obj : { default: obj };
         }
 
+        function _createForOfIteratorHelper(o) {
+          if (typeof Symbol === 'undefined' || o[Symbol.iterator] == null) {
+            if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) {
+              var i = 0;
+              var F = function F() {};
+              return {
+                s: F,
+                n: function n() {
+                  if (i >= o.length) return { done: true };
+                  return { done: false, value: o[i++] };
+                },
+                e: function e(_e) {
+                  throw _e;
+                },
+                f: F,
+              };
+            }
+            throw new TypeError(
+              'Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
+            );
+          }
+          var it,
+            normalCompletion = true,
+            didErr = false,
+            err;
+          return {
+            s: function s() {
+              it = o[Symbol.iterator]();
+            },
+            n: function n() {
+              var step = it.next();
+              normalCompletion = step.done;
+              return step;
+            },
+            e: function e(_e2) {
+              didErr = true;
+              err = _e2;
+            },
+            f: function f() {
+              try {
+                if (!normalCompletion && it.return != null) it.return();
+              } finally {
+                if (didErr) throw err;
+              }
+            },
+          };
+        }
+
+        function _unsupportedIterableToArray(o, minLen) {
+          if (!o) return;
+          if (typeof o === 'string') return _arrayLikeToArray(o, minLen);
+          var n = Object.prototype.toString.call(o).slice(8, -1);
+          if (n === 'Object' && o.constructor) n = o.constructor.name;
+          if (n === 'Map' || n === 'Set') return Array.from(n);
+          if (
+            n === 'Arguments' ||
+            /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)
+          )
+            return _arrayLikeToArray(o, minLen);
+        }
+
+        function _arrayLikeToArray(arr, len) {
+          if (len == null || len > arr.length) len = arr.length;
+          for (var i = 0, arr2 = new Array(len); i < len; i++) {
+            arr2[i] = arr[i];
+          }
+          return arr2;
+        }
+
         // query string to parameter function
         var getUrlParams = function getUrlParams() {
           var params = {};
@@ -3900,17 +3969,27 @@ parcelRequire = (function (modules, cache, entry, globalName) {
             )
           )
           .then(function (response) {
-            console.log(response); // header link
+            console.log(response);
+            var search = window.location.search;
+            var pageLinks = document.getElementsByClassName('page-link');
 
-            var parsedHeader = (0, _parseLinkHeader.default)(
-              response.headers.link
-            );
-            var totalCount = Number(parsedHeader.last._page);
-            var currentPage = parsedHeader.next
-              ? parsedHeader.next._page - 1
-              : totalCount;
-            console.log(parsedHeader);
-            console.log(currentPage); // call view function
+            var _iterator = _createForOfIteratorHelper(pageLinks),
+              _step;
+
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done; ) {
+                var a = _step.value;
+                var href = a.attributes.href.value;
+
+                if (href == search) {
+                  a.parentNode.setAttribute('class', 'page-item active');
+                }
+              } // call view function
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
 
             createListAndModal(response.data);
           });
@@ -3953,7 +4032,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           var hostname = '' || location.hostname;
           var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
           var ws = new WebSocket(
-            protocol + '://' + hostname + ':' + '57084' + '/'
+            protocol + '://' + hostname + ':' + '62274' + '/'
           );
 
           ws.onmessage = function (event) {

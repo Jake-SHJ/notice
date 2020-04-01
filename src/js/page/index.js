@@ -60,15 +60,14 @@ axios
   .then((response) => {
     console.log(response);
 
-    // header link
-    const parsedHeader = parse(response.headers.link);
-    const totalCount = Number(parsedHeader.last._page);
-    const currentPage = parsedHeader.next
-      ? parsedHeader.next._page - 1
-      : totalCount;
-
-    console.log(parsedHeader);
-    console.log(currentPage);
+    const search = window.location.search;
+    const pageLinks = document.getElementsByClassName('page-link');
+    for (const a of pageLinks) {
+      const href = a.attributes.href.value;
+      if (href == search) {
+        a.parentNode.setAttribute('class', 'page-item active');
+      }
+    }
 
     // call view function
     createListAndModal(response.data);
