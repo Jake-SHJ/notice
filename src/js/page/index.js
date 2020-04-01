@@ -60,6 +60,17 @@ axios
   .then((response) => {
     console.log(response);
 
+    // total count
+    const headers = Object.entries(response.headers);
+    for (const a of headers) {
+      if (a[0] === 'x-total-count') {
+        const totalCount = document.getElementById('total-count');
+        const countText = document.createTextNode(a[1]);
+        totalCount.appendChild(countText);
+      }
+    }
+
+    // active page
     const search = window.location.search;
     const pageLinks = document.getElementsByClassName('page-link');
     for (const a of pageLinks) {
