@@ -1,7 +1,0 @@
-node_modules/
-jspm_packages/
-.cache/
-
-.eslintcache
-Logs
-*.log
